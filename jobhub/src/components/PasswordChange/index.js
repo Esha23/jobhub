@@ -48,6 +48,13 @@ class PasswordChangeForm extends Component {
           onChange={this.onChange}
           type="password"
           placeholder="New Password"
+          style={{
+            height:30,
+             width:250,
+             paddingLeft:10,
+             marginBottom:10,
+             borderColor:"#5d575e"
+           }}
         />
         <input
           name="passwordTwo"
@@ -55,6 +62,13 @@ class PasswordChangeForm extends Component {
           onChange={this.onChange}
           type="password"
           placeholder="Confirm New Password"
+          style={{
+            height:30,
+             width:250,
+             paddingLeft:10,
+             marginBottom:10,
+             borderColor:"#5d575e"
+           }}
         />
         <button disabled={isInvalid} type="submit">
           Reset My Password

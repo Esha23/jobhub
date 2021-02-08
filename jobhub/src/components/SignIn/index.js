@@ -6,6 +6,8 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+
+import Button from '@material-ui/core/Button';
  
 const SignInPage = () => (
   <div>
@@ -62,18 +64,29 @@ class SignInFormBase extends Component {
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
-        />
+          style={{
+            height: 30,
+            width: 250,
+            paddingLeft: 10,
+            marginBottom: 10,
+            borderColor: "#5d575e"
+          }}
+        /><br />
         <input
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
- 
+          style={{
+            height: 30,
+            width: 250,
+            paddingLeft: 10,
+            marginBottom: 10,
+            borderColor: "#5d575e"
+          }}
+        /><br />
+        <Button size="medium" variant="contained" color="primary" disabled={isInvalid} type="submit"  >Sign In</Button>
         {error && <p>{error.message}</p>}
       </form>
     );

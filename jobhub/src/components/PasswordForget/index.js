@@ -55,6 +55,13 @@ class PasswordForgetFormBase extends Component {
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
+          style={{
+            height:30,
+             width:250,
+             paddingLeft:10,
+             marginBottom:10,
+             borderColor:"#5d575e"
+           }}
         />
         <button disabled={isInvalid} type="submit">
           Reset My Password

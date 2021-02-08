@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
  
-import { FirebaseContext } from '../Firebase';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
@@ -11,9 +10,6 @@ const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
     <SignUpForm />
-    {/* <FirebaseContext.Consumer>
-      {firebase => <SignUpForm firebase={firebase} />}
-    </FirebaseContext.Consumer> */}
   </div>
 );
 
@@ -76,28 +72,74 @@ class SignUpFormBase extends Component {
           onChange={this.onChange}
           type="text"
           placeholder="Full Name"
-        />
+          style={{
+            height:30,
+            width:250,
+            paddingLeft:10,
+            marginBottom:10,
+            borderColor:"#5d575e"
+
+          }}
+        /><br />
         <input
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
-        />
+          style={{
+            height:30,
+            width:250,
+            paddingLeft:10,
+            marginBottom:10,
+            borderColor:"#5d575e"
+
+          }}
+        /><br />
         <input
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
-        />
+          style={{
+            height:30,
+            width:250,
+            paddingLeft:10,
+            marginBottom:10,
+            borderColor:"#5d575e"
+
+          }}
+        /><br />
         <input
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
           placeholder="Confirm Password"
-        />
+          style={{
+            height:30,
+            width:250,
+            paddingLeft:10,
+            marginBottom:10,
+            borderColor:"#5d575e"
+
+          }}
+        /><br />
+        <select style={{
+            height:30,
+            width:267,
+            paddingLeft:10,
+            marginBottom:10,
+            color: "grey"
+          }} 
+          onChange={this.handleChange}
+          >
+          <option selected value="select UserType">Select User Type</option>
+          <option value="User" style={{color: "black"}}>User</option>
+          <option value="Recruiter" style={{color: "black"}}>Recruiter</option>
+        </select>
+        <br />
         <button disabled={isInvalid} type="submit">
           Sign Up
         </button>
