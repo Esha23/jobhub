@@ -6,6 +6,9 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { httpClient } from '../../utils/HTTPBaseClient';
+import firebase from "firebase/app";
+import "firebase/auth";
 
 import Button from '@material-ui/core/Button';
  
@@ -23,6 +26,10 @@ const INITIAL_STATE = {
   password: '',
   error: null,
 };
+var userDetails = {
+  id: '',
+  email: ''
+};
  
 class SignInFormBase extends Component {
   constructor(props) {
@@ -31,6 +38,27 @@ class SignInFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
  
+  componentDidMount() {
+    console.log("hey there! signin cdm")
+    firebase.auth().onAuthStateChanged(async (user) => {
+      let that = this;
+      // let dispatch=useDispatch();
+      if (user) {
+        userDetails.id = user.uid;
+        let response = await httpClient.getData(ROUTES.GET_USER_TYPE + user.uid);
+        // dispatch(fetchUserSuccess(response))
+        // that.props.fetchUserSuccess(response)
+        if (response.type === 'Applicant')
+          that.props.history.push(ROUTES.APPLICANT_HOME);
+        else if (response.type === 'Recruiter')
+          that.props.history.push(ROUTES.RECRUITER_HOME);
+      }
+      else {
+        console.log("User does not exist");
+      }
+    });
+  };
+
   onSubmit = event => {
     const { email, password } = this.state;
  
@@ -38,7 +66,7 @@ class SignInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        // this.props.history.push(ROUTES.RECRUITER_HOME);
       })
       .catch(error => {
         this.setState({ error });

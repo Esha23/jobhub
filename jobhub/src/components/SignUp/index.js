@@ -3,6 +3,9 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
  
 import { withFirebase } from '../Firebase';
+import firebase from "firebase/app";
+import "firebase/auth";
+import axios from 'axios';
 import * as ROUTES from '../../constants/routes';
 
  
@@ -20,29 +23,79 @@ const INITIAL_STATE = {
   passwordTwo: '',
   error: null,
 };
+
+var userDetails = {
+  id: '',
+  username: '',
+  email: '',
+  type: '',
+  mailDetails:{
+    subject: null,
+    body: null
+  }
+};
  
 class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
 
     this.state = { ...INITIAL_STATE };
+    this.handleChange = this.handleChange.bind(this);
   }
  
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
- 
+    const { username, email, passwordOne, type } = this.state;
+    
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        if(type === "Recruiter") {
+          this.props.history.push(ROUTES.RECRUITER_HOME);
+          console.log("route to recruiter home");
+        }
+        else if(type === "Applicant") {
+          this.props.history.push(ROUTES.APPLICANT_HOME);
+          console.log("route to applicant home")
+        }
       })
       .catch(error => {
         this.setState({ error });
       });
+
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          userDetails.id = user.uid;
+          userDetails.email = user.email;
+          userDetails.type = this.state.type;
+          userDetails.username = username;
+          var data = JSON.stringify(userDetails);
+          console.log("userdetails:",data);
+          axios.post('http://localhost:8040/user/addUser', data, {
+            "headers":{
+              Action: "apllication/json",
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          })
+          .then(function(response) {
+            console.log(response);
+          })    
+          .catch(function(error) {
+            console.log(error);
+          })
+        } 
+        else {
+          console.log("User does not exist");
+        }
+      });
  
-    event.preventDefault();
+      event.preventDefault();
  
+  }
+
+  handleChange(event) {
+    this.setState({type: event.target.value});
   }
  
   onChange = event => {
@@ -133,10 +186,11 @@ class SignUpFormBase extends Component {
             marginBottom:10,
             color: "grey"
           }} 
+          defaultValue="Applicant"
           onChange={this.handleChange}
           >
-          <option selected value="select UserType">Select User Type</option>
-          <option value="User" style={{color: "black"}}>User</option>
+          {/* <option selected value="select UserType">Select User Type</option> */}
+          <option value="Applicant" style={{color: "black"}}>Applicant</option>
           <option value="Recruiter" style={{color: "black"}}>Recruiter</option>
         </select>
         <br />
