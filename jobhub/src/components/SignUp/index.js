@@ -26,7 +26,7 @@ const INITIAL_STATE = {
 
 var userDetails = {
   id: '',
-  username: '',
+  name: '',
   email: '',
   type: '',
   mailDetails:{
@@ -68,7 +68,7 @@ class SignUpFormBase extends Component {
           userDetails.id = user.uid;
           userDetails.email = user.email;
           userDetails.type = this.state.type;
-          userDetails.username = username;
+          userDetails.name = username;
           var data = JSON.stringify(userDetails);
           console.log("userdetails:",data);
           axios.post('http://localhost:8040/user/addUser', data, {
@@ -186,10 +186,10 @@ class SignUpFormBase extends Component {
             marginBottom:10,
             color: "grey"
           }} 
-          defaultValue="Applicant"
+          defaultValue=""
           onChange={this.handleChange}
           >
-          {/* <option selected value="select UserType">Select User Type</option> */}
+          <option selected value="select UserType">Select User Type</option>
           <option value="Applicant" style={{color: "black"}}>Applicant</option>
           <option value="Recruiter" style={{color: "black"}}>Recruiter</option>
         </select>
