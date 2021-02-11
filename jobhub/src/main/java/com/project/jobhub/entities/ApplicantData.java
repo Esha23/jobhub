@@ -1,0 +1,80 @@
+package com.project.jobhub.entities;
+
+public class ApplicantData {
+	
+	private String applicant_id;
+	
+	private String contact;
+	
+	private String gender;
+	
+	private String experience;
+	
+	private String education;
+	
+	private String location;
+
+	public ApplicantData() {
+		
+	}
+
+	public ApplicantData(String applicant_id, String contact, String gender, String experience, String education,
+			String location) {
+		super();
+		this.applicant_id = applicant_id;
+		this.contact = contact;
+		this.gender = gender;
+		this.experience = experience;
+		this.education = education;
+		this.location = location;
+	}
+
+	public String getApplicant_id() {
+		return applicant_id;
+	}
+
+	public void setApplicant_id(String applicant_id) {
+		this.applicant_id = applicant_id;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+}
