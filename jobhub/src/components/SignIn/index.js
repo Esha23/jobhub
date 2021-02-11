@@ -7,15 +7,17 @@ import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import { httpClient } from '../../utils/HTTPBaseClient';
+import { fetchUserSuccess } from '../../redux/slices/user';
+import { connect, useDispatch } from 'react-redux';
 import firebase from "firebase/app";
 import "firebase/auth";
 
 import Button from '@material-ui/core/Button';
  
-const SignInPage = () => (
-  <div>
+const SignInPage = (props) => (
+  <div style={{ textAlign: "center" }}>
     <h1>SignIn</h1>
-    <SignInForm />
+    <SignInForm fetchUserSuccess={props.fetchUserSuccess}/>
     <PasswordForgetLink />
     <SignUpLink />
   </div>
@@ -30,6 +32,13 @@ var userDetails = {
   id: '',
   email: ''
 };
+
+function mapStateToPropos(state) {
+  console.log(state);
+  return {
+    users: state.users
+  };  
+}
  
 class SignInFormBase extends Component {
   constructor(props) {
@@ -47,7 +56,7 @@ class SignInFormBase extends Component {
         userDetails.id = user.uid;
         let response = await httpClient.getData(ROUTES.GET_USER_TYPE + user.uid);
         // dispatch(fetchUserSuccess(response))
-        // that.props.fetchUserSuccess(response)
+        that.props.fetchUserSuccess(response)
         if (response.type === 'Applicant')
           that.props.history.push(ROUTES.APPLICANT_HOME);
         else if (response.type === 'Recruiter')
@@ -125,7 +134,11 @@ const SignInForm = compose(
   withRouter,
   withFirebase,
 )(SignInFormBase);
+
+const dispatchToProps = {
+  fetchUserSuccess
+}
  
-export default SignInPage;
+export default connect(mapStateToPropos, dispatchToProps)(SignInPage);
  
 export { SignInForm };

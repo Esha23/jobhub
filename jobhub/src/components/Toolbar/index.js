@@ -15,10 +15,13 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import axios from 'axios';
-// import { getCurrentUser } from '../../redux/selectors/userSelectors';
+import { getCurrentUser } from '../../redux/selectors/userSelectors';
 import SignOutButton from '../SignOut';
-// import { createSelector } from 'reselect'
-// import {connect, useDispatch, useSelector} from 'react-redux';
+import * as ROUTES from '../../constants/routes';
+import { Link } from 'react-router-dom'; 
+import Button from '@material-ui/core/Button'; 
+import { createSelector } from 'reselect'
+import {connect, useDispatch, useSelector} from 'react-redux';
 const styles = theme => ({
   grow: {
     flexGrow: 1
@@ -210,9 +213,6 @@ class ToolbarComponent extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" noWrap>
-              <strong>JOBHUB</strong>
-            </Typography>
             <div className={classes.search} style={{marginLeft: "5%", width: "40%"}}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -230,19 +230,6 @@ class ToolbarComponent extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {/* <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton> */}
-              {/* <IconButton
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton> */}
               <div>
                 <h3>Welcome!</h3>  
               </div>
@@ -268,11 +255,11 @@ class ToolbarComponent extends React.Component {
   }
 }
 
-// const mapStateToProps = createSelector(
-//   [ getCurrentUser], (userObject) => ({ userObject})
-//   // [getCurrentUser], (userObject) => ({ userObject })
+const mapStateToProps = createSelector(
+  [ getCurrentUser], (userObject) => ({ userObject})
+  // [getCurrentUser], (userObject) => ({ userObject })
   
-//   );
+  );
 
-// export default connect(mapStateToProps)(withStyles(styles)(ToolbarComponent));
-export default (withStyles(styles)(ToolbarComponent));
+export default connect(mapStateToProps)(withStyles(styles)(ToolbarComponent));
+// export default (withStyles(styles)(ToolbarComponent));

@@ -20,7 +20,7 @@ import RecruiterHome from '../RecruiterHome';
 const App = () => (
     <Router>
     <div>
-      <Navigation />
+      {/* <Navigation /> */}
  
       <hr />
  
