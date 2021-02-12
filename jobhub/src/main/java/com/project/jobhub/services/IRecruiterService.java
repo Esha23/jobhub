@@ -9,5 +9,7 @@ public interface IRecruiterService {
 	public void addRecruiterData(RecruiterData recruiterData);
 	
 	public List<RecruiterData> getRecruiterData(String recruiter_id);
+	
+	public void closeJob(Integer job_id);
 
 }

@@ -13,5 +13,6 @@ public class ApplicantDataTableConstants {
 	public static final String EXPERIENCE = "experience";
 	public static final String EDUCATION = "education";
 	public static final String LOCATION = "location";
+	public static final String SALARY = "salary";
 	
 }

@@ -9,5 +9,7 @@ public class ApplicantToCategoryTableConstants {
 	public static final String TABLE_NAME = "applicantToCategory";
 	public static final String APPLICANT_ID = "applicant_id";
 	public static final String CATEGORY_ID = "category_id";
+	
+	public static final String MATCH_CATEGORY_LIST = "";
 
 }

@@ -1,6 +1,8 @@
 package com.project.jobhub.entities;
 
 public class RecruiterData {
+	
+	private Integer job_id;
 
 	private String recruiter_id;
 	
@@ -16,15 +18,23 @@ public class RecruiterData {
 	
 	private String location;
 	
+	private Integer salary;
+
+	private String title;
+	
+	private String description;
+	
 	private String job_status;
 
 	public RecruiterData() {
 		
 	}
 
-	public RecruiterData(String recruiter_id, String category_id, String contact, String gender, String experience,
-			String education, String location, String job_status) {
+	public RecruiterData(Integer job_id, String recruiter_id, String category_id, String contact, String gender,
+			String experience, String education, String location, Integer salary, String title, String description,
+			String job_status) {
 		super();
+		this.job_id = job_id;
 		this.recruiter_id = recruiter_id;
 		this.category_id = category_id;
 		this.contact = contact;
@@ -32,6 +42,9 @@ public class RecruiterData {
 		this.experience = experience;
 		this.education = education;
 		this.location = location;
+		this.salary = salary;
+		this.title = title;
+		this.description = description;
 		this.job_status = job_status;
 	}
 
@@ -91,12 +104,44 @@ public class RecruiterData {
 		this.location = location;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getJobStatus() {
 		return job_status;
 	}
 
 	public void setJobStatus(String job_status) {
 		this.job_status = job_status;
+	}
+
+	public Integer getJob_id() {
+		return job_id;
+	}
+
+	public void setJob_id(Integer job_id) {
+		this.job_id = job_id;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
 	}
 	
 }

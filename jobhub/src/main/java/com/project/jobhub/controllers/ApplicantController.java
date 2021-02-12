@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.jobhub.entities.ApplicantData;
 import com.project.jobhub.entities.Category;
+import com.project.jobhub.entities.RecruiterData;
 import com.project.jobhub.services.IApplicantService;
 
 @RestController
@@ -40,6 +41,20 @@ public class ApplicantController {
 	@ResponseBody
 	public List<ApplicantData> getApplicantData(@PathVariable String applicant_id) {
 		return iApplicantService.getApplicantData(applicant_id);
+	}
+	
+	@GetMapping("/getApplicantRecommendedJobs/{applicant_id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public List<RecruiterData> getApplicantRecommendedJobs(@PathVariable String applicant_id) {
+		return iApplicantService.getApplicantRecommendedJobs(applicant_id);
+	}
+	
+	@GetMapping("/mailHr/{recruiter_id}/{applicant_id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void mailHr(@PathVariable String recruiter_id, @PathVariable String applicant_id) {
+		iApplicantService.mailHr(recruiter_id, applicant_id);
 	}
 
 }

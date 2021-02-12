@@ -25,4 +25,9 @@ public class RecruiterService implements IRecruiterService{
 		return iRecruiterDao.getRecruiterData(recruiter_id);
 	}
 
+	@Override
+	public void closeJob(Integer job_id) {
+		iRecruiterDao.closeJob(job_id);
+	}
+
 }

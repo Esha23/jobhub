@@ -13,13 +13,15 @@ public class ApplicantData {
 	private String education;
 	
 	private String location;
+	
+	private Integer salary;
 
 	public ApplicantData() {
 		
 	}
 
 	public ApplicantData(String applicant_id, String contact, String gender, String experience, String education,
-			String location) {
+			String location, Integer salary) {
 		super();
 		this.applicant_id = applicant_id;
 		this.contact = contact;
@@ -27,6 +29,7 @@ public class ApplicantData {
 		this.experience = experience;
 		this.education = education;
 		this.location = location;
+		this.salary = salary;
 	}
 
 	public String getApplicant_id() {
@@ -75,6 +78,14 @@ public class ApplicantData {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public Integer getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Integer salary) {
+		this.salary = salary;
 	}
 
 }
