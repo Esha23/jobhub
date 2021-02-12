@@ -31,9 +31,7 @@ function CategoryList(props) {
 
     global.setIsSelected = () => {
         Object.values(categoryList).map(val => {
-            console.log(val.name);
             val.isSelected=false;
-            console.log(val);
         });
     }
     
@@ -45,7 +43,6 @@ function CategoryList(props) {
             }
         });
         await setCategoryList(categoryList);
-        console.log("updated categoryList:",categoryList);
     }
 
     const onSubmit = async() => {
@@ -55,11 +52,8 @@ function CategoryList(props) {
                 list=[...list, val];
             }
         });
-        console.log(list);
         const response = await httpClient.postData(ROUTES.APPLY_CATEGORY_APPLICANT+userObject.id,list);
         alert("Categories Selected !")
-        console.log(userObject);
-        console.log(userObject.type === 'Applicant');
         if(userObject.type === "Applicant"){
             setOpenModalApplicantRequirementDetails(true);
         }
@@ -93,8 +87,7 @@ function CategoryList(props) {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description" >
                     <div style={{columns: 2, backgroundColor: "white", margin:"10% 20% 10% 20%", padding:"2% 2% 2% 2%"}}>
-                        {/* <CategoryList onClose={() => handleCloseModalApplicantRequirementDetails}/> */}
-                        <h1>New Modal</h1>
+                        <h1>Applicant Details</h1>
                         <ApplicantRequirementDetails onClose={() => handleCloseModalApplicantRequirementDetails}/>
                     </div>
             </Modal>     

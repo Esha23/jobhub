@@ -82,8 +82,6 @@ function ApplicantRequirementDetails(props) {
     }
 
     const onSubmit = async() => {
-        // console.log((userObject.type === "Applicant"));
-        console.log(userObject.type);
         if(userObject.type === "Applicant"){
             applicantData.contact = contact;
             applicantData.gender = gender;
@@ -91,7 +89,6 @@ function ApplicantRequirementDetails(props) {
             applicantData.education = education;
             applicantData.location = location;
             applicantData.salary = salary;
-            console.log("applicantdata:",applicantData)
             let response = await httpClient.postData(ROUTES.ADD_APPLICANT_DATA,applicantData);
         }
         else if(userObject.type === "Recruiter"){
@@ -110,7 +107,6 @@ function ApplicantRequirementDetails(props) {
             recruiterData.salary = salary;
             recruiterData.title = title;
             recruiterData.description = description;
-            console.log("recruiterData:",recruiterData)
             let response = await httpClient.postData(ROUTES.ADD_RECRUITER_DATA,recruiterData);
         }
         window.location.reload();

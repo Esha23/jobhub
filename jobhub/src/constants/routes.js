@@ -17,3 +17,4 @@ export const GET_RECRUITER_DATA = 'recruiter/getRecruiterData/';
 export const GET_JOB_RECOMMENDATION_LIST = 'applicant/getApplicantRecommendedJobs/';
 export const CLOSE_JOB = 'recruiter/closeJob/';
 export const MAIL_HR = 'applicant/mailHr/';
+export const FILTER_JOB_BY_SALARY = 'applicant/filterJobBySalary/';

@@ -51,11 +51,9 @@ class SignInFormBase extends Component {
     console.log("hey there! signin cdm")
     firebase.auth().onAuthStateChanged(async (user) => {
       let that = this;
-      // let dispatch=useDispatch();
       if (user) {
         userDetails.id = user.uid;
         let response = await httpClient.getData(ROUTES.GET_USER_TYPE + user.uid);
-        // dispatch(fetchUserSuccess(response))
         that.props.fetchUserSuccess(response)
         if (response.type === 'Applicant')
           that.props.history.push(ROUTES.APPLICANT_HOME);
@@ -75,7 +73,6 @@ class SignInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        // this.props.history.push(ROUTES.RECRUITER_HOME);
       })
       .catch(error => {
         this.setState({ error });

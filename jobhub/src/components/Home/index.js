@@ -29,19 +29,21 @@ function HomePage () {
     setModalOpenApplyForJob(false);
   };
 
+  const handleFilterBySalary = async() => {
+    let response = await httpClient.getData(ROUTES.FILTER_JOB_BY_SALARY + userObject.id);
+    setrecruiterDataList(response);
+  }
+
   useEffect(async() => {
     console.log(userObject);
     let response = await httpClient.getData(ROUTES.GET_APPLICANT_DATA+userObject.id);
-    // applicantData = response;
     setapplicantData(response);
     Object.values(applicantData).map(val => {
       console.log(val)
     })
     let response1 = await httpClient.getData(ROUTES.GET_JOB_RECOMMENDATION_LIST+userObject.id);
     console.log(response1);
-    // recruiterDataList = response1;
     setrecruiterDataList(response1);
-    // recData = recruiterDataList[0];
     console.log("rec data res1:", recruiterDataList);
     console.log("rec adat list length: ",recruiterDataList.length);
   },[]);
@@ -56,8 +58,7 @@ function HomePage () {
           <h1>Applicant Home</h1>
           <hr />
           <Button size="small" variant="contained" color="primary" onClick={handleOpenModalApplyForJob}>APPLY FOR JOB</Button>
-          <Button size="small" variant="contained" color="primary"  style={{marginLeft:"1%"}}>Sort By Salary</Button>
-          <Button size="small" variant="contained" color="primary" style={{marginLeft:"1%"}} >Sort By Location</Button>
+          <Button size="small" variant="contained" color="primary" onClick={handleFilterBySalary} style={{marginLeft:"1%"}}>Filter By Salary</Button>
         </div>
           {Object.values(applicantData).map((val,i) => (
             <>

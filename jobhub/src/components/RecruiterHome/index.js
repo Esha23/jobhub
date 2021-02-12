@@ -13,7 +13,6 @@ import JobTile from '../JobTile';
 function RecruiterHome () {
 
   const userObject = useSelector(getCurrentUser);
-  // var recruiterDataJobList ={};
 
   const [openModalPostJob, setOpenModalPostJob] = React.useState(false);
   const [recruiterDataJobList, setrecruiterDataJobList] = React.useState([]);
@@ -26,15 +25,8 @@ function RecruiterHome () {
   };
 
   useEffect(async() => {
-    console.log(userObject);
     let response = await httpClient.getData(ROUTES.GET_RECRUITER_DATA+userObject.id);
-    // recruiterDataJobList = response;
     setrecruiterDataJobList(response);
-    console.log("get rec res :",response)
-    console.log("rec data:",recruiterDataJobList)
-    Object.values(recruiterDataJobList).map(val => {
-      console.log(val)
-    })
   },[]);
 
   return(

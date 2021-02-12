@@ -56,9 +56,6 @@ function mapStateToPropos(state) {
 function JobTile(props) {
 
   var RecruiterData = {...props.RecruiterData};
-  console.log(RecruiterData);
-  // var completeTicket = {...props.completeTicket};
-  let dispatch=useDispatch();
   const userObject = useSelector(getCurrentUser)
   const classes = useStyles();
 
@@ -87,11 +84,6 @@ function JobTile(props) {
                   label={RecruiterData.jobStatus}
                   style={{marginLeft:10}}
               />
-              {/* <Typography variant="h6" component="h2" className={classes.title}>
-                <label>Category :</label>
-                4
-                {RecruiterData.category_id}
-              </Typography> */}
               <Typography variant="h6" component="h2" className={classes.title}>
                 <label>Location :</label>
                
@@ -117,16 +109,6 @@ function JobTile(props) {
              
                 {RecruiterData.contact}
               </Typography>
-              {/* <div className={classes.floatRight}>
-                  <Fab color="primary" aria-label="view" style={{height:15,width:35,marginTop:"20%"}}>
-                      <DetailsIcon style={{height:20}}/>
-                  </Fab>
-                  {(userObject.type === 'Recruiter') ?
-                  <>
-                    <Button size="small" variant="contained" color="primary" onClick={closeJob}>Close Job</Button>
-                  </>
-                : <></>}
-              </div> */}
               <Typography variant="h6" component="h2" className={classes.title}>
                 <label>Approx Salary :</label>
                 INR
@@ -164,7 +146,6 @@ function JobTile(props) {
               : <>
                 <Button size="small" variant="contained" color="primary" onClick={closeJob} style={{float:"right"}}>CLOSE JOB</Button>
               </>}
-              {/* <LensIcon style={{height:15,float:'right', color:(RecruiterData.job_status == "OPEN") ? 'green': 'red'}}/> */}
           </CardContent>
         </div>
       </Card>
