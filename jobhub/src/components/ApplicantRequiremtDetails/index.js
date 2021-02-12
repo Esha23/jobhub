@@ -128,7 +128,7 @@ function ApplicantRequirementDetails(props) {
                     <input type="radio" value="Female" name="gender" /> Female
                     <input type="radio" value="Other" name="gender" /> Other
                 </div>
-                {(true) ?
+                {(userObject.type === "Recruiter") ?
                 <>
                     <select style={{
                             height:30,
@@ -144,8 +144,7 @@ function ApplicantRequirementDetails(props) {
                                 <option value={val.name} style={{color: "black"}}>{val.name}</option>
                             ))}
                     </select>
-                </>
-                : <></>}
+               
                 <br />
 
                 <input
@@ -179,7 +178,8 @@ function ApplicantRequirementDetails(props) {
                     }}
                 />
                 <br />
-
+                </>
+                : <></>}
                 <input
                     type="number"
                     placeholder="Total Experience (in years)"
