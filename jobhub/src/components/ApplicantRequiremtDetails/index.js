@@ -61,7 +61,7 @@ function ApplicantRequirementDetails(props) {
         applicant_id: userObject.id,
         contact: '',
         gender: '',
-        experience: '',
+        experience: 0,
         education: '',
         location: '',
         salary:0
@@ -72,7 +72,7 @@ function ApplicantRequirementDetails(props) {
         category_id: 0,
         contact: '',
         gender: '',
-        experience: '',
+        experience: 0,
         education: '',
         location: '',
         salary: 0,
@@ -185,7 +185,7 @@ function ApplicantRequirementDetails(props) {
                 <br />
 
                 <input
-                    type="text"
+                    type="number"
                     placeholder="Total Experience (in years)"
                     name="experience"
                     value={experience}
