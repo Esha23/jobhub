@@ -17,5 +17,7 @@ public interface IApplicantService {
 	public List<RecruiterData> getApplicantRecommendedJobs(String applicant_id);
 	
 	public void mailHr(String recruiter_id, String applicant_id);
+	
+	public List<RecruiterData> filterJobBySalary(String applicant_id);
 
 }

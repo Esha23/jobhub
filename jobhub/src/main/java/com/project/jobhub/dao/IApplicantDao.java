@@ -18,5 +18,7 @@ public interface IApplicantDao {
 	public List<RecruiterData> getApplicantRecommendedJobs(String applicant_id);
 	
 	public MailDetails getApplicantProfile(String applicant_id);
+	
+	public List<RecruiterData> filterJobBySalary(String applicant_id);
 
 }

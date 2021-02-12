@@ -84,6 +84,21 @@ public class ApplicantDao implements IApplicantDao{
 		applicantData.setSalary(resultSet.getInt(ApplicantDataTableConstants.SALARY));
 		return applicantData;
 	}
+	
+	@Override
+	public List<RecruiterData> filterJobBySalary(String applicant_id) {
+		List<RecruiterData> applicantRecommendedJobsAllParams = getApplicantRecommendedJobs(applicant_id);
+		Map<Integer, Integer> salaryMatchFrequency  = new HashMap<Integer, Integer>();
+		for(RecruiterData job : applicantRecommendedJobsAllParams) {
+			salaryMatchFrequency.put(job.getJob_id(), job.getSalary());
+		}
+		List<Integer> sortedSalaryMatch = sortMapByFrequency(salaryMatchFrequency);
+		List<RecruiterData> recommendList = new ArrayList<RecruiterData>();
+		for(Integer sortedSalaryMatchItem : sortedSalaryMatch) {
+			recommendList.add(getRecruiterDataByJobId(sortedSalaryMatchItem).get(0));
+		}
+		return recommendList;
+	}
 
 	@Override
 	public List<RecruiterData> getApplicantRecommendedJobs(String applicant_id) {
@@ -277,5 +292,7 @@ public class ApplicantDao implements IApplicantDao{
 		mailDetails.setBody(mailBody);
 		return mailDetails;
 	}
+
+	
 	
 }

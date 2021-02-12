@@ -56,5 +56,12 @@ public class ApplicantController {
 	public void mailHr(@PathVariable String recruiter_id, @PathVariable String applicant_id) {
 		iApplicantService.mailHr(recruiter_id, applicant_id);
 	}
+	
+	@GetMapping("/filterJobBySalary/{applicant_id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public List<RecruiterData> filterJobBySalary(@PathVariable String applicant_id) {
+		return iApplicantService.filterJobBySalary(applicant_id);
+	}
 
 }

@@ -53,4 +53,9 @@ public class ApplicantService implements IApplicantService{
 		iMailService.mail(mailDetails, emails);
 	}
 
+	@Override
+	public List<RecruiterData> filterJobBySalary(String applicant_id) {
+		return iApplicantDao.filterJobBySalary(applicant_id);
+	}
+
 }
