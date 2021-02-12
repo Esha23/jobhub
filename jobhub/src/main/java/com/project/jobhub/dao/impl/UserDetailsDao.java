@@ -26,6 +26,7 @@ public class UserDetailsDao implements IUserDetailsDao{
 	
 	private static Logger logger = LoggerFactory.getLogger(UserDetailsDao.class);
 
+	//add a new user to database (both recruiter and applicant)
 	@Override
 	public UserDetails addUser(UserDetails userDetails) {
 		final KeyHolder holder = new GeneratedKeyHolder();
@@ -39,6 +40,7 @@ public class UserDetailsDao implements IUserDetailsDao{
 		return userDetails;
 	}
 
+	// get user type i.e. applicant or recruiter
 	@Override
 	public UserDetails getUserType(String user_id) {	
 		StringBuilder sb = new StringBuilder(40);
@@ -49,6 +51,7 @@ public class UserDetailsDao implements IUserDetailsDao{
 		return userdetails.get(0);
 	}
 	
+	//utility function
 	private UserDetails mapUserDetails(ResultSet resultSet) throws SQLException {
 		UserDetails userDetails = new UserDetails();
 		userDetails.setId(resultSet.getString(UserDetailsTableConstants.ID));

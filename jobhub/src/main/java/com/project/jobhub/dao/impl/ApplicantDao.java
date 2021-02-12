@@ -39,6 +39,7 @@ public class ApplicantDao implements IApplicantDao{
 	@Autowired
 	IUserDetailsDao iUserDetailsDao;
 
+	// function to assign list of categories selected by applicant to them
 	@Override
 	public void applyToCategory(String applicant_id, List<Category> appliedCategoryList) {
 		for( Category category: appliedCategoryList) {
@@ -50,6 +51,7 @@ public class ApplicantDao implements IApplicantDao{
 		}
 	}
 
+	//function to save a new applicant to database
 	@Override
 	public void addApplicantData(ApplicantData applicantData) {
 		final KeyHolder holder = new GeneratedKeyHolder();
@@ -64,6 +66,7 @@ public class ApplicantDao implements IApplicantDao{
 		namedParameterJdbcTemplate.update(ApplicantQueries.addApplicantData_Query, srcMap, holder, new String[] { ApplicantDataTableConstants.APPLICANT_ID });	
 	}
 
+	// function to get applicant profile info given applicant id
 	@Override
 	public List<ApplicantData> getApplicantData(String applicant_id) {
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
@@ -73,6 +76,7 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
+	//utility function to set Applicant Profile Info to an ApplicantData Object
 	private ApplicantData mapApplicantData(ResultSet resultSet) throws SQLException {
 		ApplicantData applicantData = new ApplicantData();
 		applicantData.setApplicant_id(resultSet.getString(ApplicantDataTableConstants.APPLICANT_ID));
@@ -85,6 +89,7 @@ public class ApplicantDao implements IApplicantDao{
 		return applicantData;
 	}
 	
+	// function to filter recommended job list of applicant according to all parameters but ruled by salary primely
 	@Override
 	public List<RecruiterData> filterJobBySalary(String applicant_id) {
 		List<RecruiterData> applicantRecommendedJobsAllParams = getApplicantRecommendedJobs(applicant_id);
@@ -100,6 +105,7 @@ public class ApplicantDao implements IApplicantDao{
 		return recommendList;
 	}
 
+	//function to recommend job list to applicants using Hashmap to find the job with maximum parameter match
 	@Override
 	public List<RecruiterData> getApplicantRecommendedJobs(String applicant_id) {
 		System.out.println("getapplicantrecommendedjobs func started");
@@ -146,6 +152,12 @@ public class ApplicantDao implements IApplicantDao{
 		return recommendList;
 	}
 	
+	
+	
+	
+	//Utility functions ---------------------------------------------- start --------------
+	
+	// used to sort a hashmap by it's value
 	public List<Integer> sortMapByFrequency(Map<Integer,Integer> recruiterMatchFrequency){
 		List<Entry<Integer, Integer>> list = new LinkedList<Entry<Integer, Integer>>(recruiterMatchFrequency.entrySet());
 		Collections.sort(list, new Comparator<Entry<Integer, Integer>>(){
@@ -162,6 +174,7 @@ public class ApplicantDao implements IApplicantDao{
 		return sortedList;	
 	}
 	
+	// get job by job id
 	private List<RecruiterData> getRecruiterDataByJobId(Integer job_id){
 		String getRecruiterDataByJobId_Query = "SELECT * FROM " + RecruiterDataTableConstants.TABLE_NAME 
 				+ " WHERE " + RecruiterDataTableConstants.JOB_ID + " = " + job_id;
@@ -171,7 +184,7 @@ public class ApplicantDao implements IApplicantDao{
 	}
 	
 	
-	
+	// get all jobs
 	private List<RecruiterData> getAllJobId() {
 		String status ="OPEN";
 		String getAllRecruiterData_Query = "SELECT * FROM " + RecruiterDataTableConstants.TABLE_NAME 
@@ -181,11 +194,13 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
+	// get applicant profile given applicant id
 	private String getApplicantGenderById(String applicant_id) {
 		List<ApplicantData> applicantDataList = getApplicantData(applicant_id);
 		return applicantDataList.get(0).getGender();
 	}
 	
+	// get job list ordered by gender param for applicant
 	private List<RecruiterData> getApplicantRecommendedJobsByGender(String applicant_id){
 		String gender = getApplicantGenderById(applicant_id);
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
@@ -195,11 +210,13 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
+	// get applicant location given id
 	private String getApplicantLocationById(String applicant_id) {
 		List<ApplicantData> applicantDataList = getApplicantData(applicant_id);
 		return applicantDataList.get(0).getLocation();
 	}
 	
+	// get job list ordered by location param for applicant
 	private List<RecruiterData> getApplicantRecommendedJobsByLocation(String applicant_id){
 		String location = getApplicantLocationById(applicant_id);
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
@@ -214,6 +231,7 @@ public class ApplicantDao implements IApplicantDao{
 		return applicantDataList.get(0).getEducation();
 	}
 	
+	// get job list ordered by education param for applicant
 	private List<RecruiterData> getApplicantRecommendedJobsByEducation(String applicant_id){
 		String education = getApplicantEducationById(applicant_id);
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
@@ -228,6 +246,7 @@ public class ApplicantDao implements IApplicantDao{
 		return applicantDataList.get(0).getExperience();
 	}
 	
+	// get job list ordered by experience param for applicant
 	private List<RecruiterData> getApplicantRecommendedJobsByExperience(String applicant_id){
 		Integer experience = getApplicantExperienceById(applicant_id);
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
@@ -237,11 +256,13 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
+	// get applicant salary given applicant id
 	private Integer getApplicantSalaryById(String applicant_id) {
 		List<ApplicantData> applicantDataList = getApplicantData(applicant_id);
 		return applicantDataList.get(0).getSalary();
 	}
 	
+	// get job list ordered by salary param for applicant
 	private List<RecruiterData> getApplicantRecommendedJobsBySalary(String applicant_id){
 		Integer salary = getApplicantSalaryById(applicant_id);
 		String getApplicantRecommendedJobsBySalary_Query = "SELECT * FROM " + RecruiterDataTableConstants.TABLE_NAME 
@@ -252,6 +273,7 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
+	//get list of all category ids applicant applied to get a job for 
 	private List<Integer> getAppliedCategoriesApplicant(String applicant_id){
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
 		srcMap.addValue(ApplicantToCategoryTableConstants.APPLICANT_ID, applicant_id);
@@ -260,6 +282,7 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
+	// get job list ordered by list of selected categories param by applicant
 	private List<RecruiterData> getApplicantRecommendedJobsByCategory(String applicant_id){
 		List<Integer> categoryList = getAppliedCategoriesApplicant(applicant_id);
 		String match_category_list = "(";
@@ -274,7 +297,10 @@ public class ApplicantDao implements IApplicantDao{
 			return RecruiterDao.mapRecruiterData(resultSet);
 		});
 	}
+	
+	// Utility functions --------------------------- end --------------------------------
 
+	// function to get applicant profile(mail details) that is to be mailed to HR when applicant clicks on MailHR
 	@Override
 	public MailDetails getApplicantProfile(String applicant_id) {
 		UserDetails applicantDetails = iUserDetailsDao.getUserType(applicant_id);

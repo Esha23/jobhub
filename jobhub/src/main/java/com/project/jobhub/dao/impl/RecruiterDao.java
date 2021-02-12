@@ -23,6 +23,7 @@ public class RecruiterDao implements IRecruiterDao{
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+	// add new job to database
 	@Override
 	public void addRecruiterData(RecruiterData recruiterData) {
 		final KeyHolder holder = new GeneratedKeyHolder();
@@ -41,6 +42,7 @@ public class RecruiterDao implements IRecruiterDao{
 		namedParameterJdbcTemplate.update(RecruiterQueries.addRecruiterData_Query, srcMap, holder, new String[] { RecruiterDataTableConstants.JOB_ID });	
 	}
 	
+	// close a job given the job id
 	@Override
 	public void closeJob(Integer job_id) {
 		final KeyHolder holder = new GeneratedKeyHolder();
@@ -50,6 +52,7 @@ public class RecruiterDao implements IRecruiterDao{
 		namedParameterJdbcTemplate.update(RecruiterQueries.closeJob_Query, srcMap, holder, new String[] { RecruiterDataTableConstants.JOB_ID });	
 	}
 	
+	// get list of all jobs posted by recruiter
 	@Override
 	public List<RecruiterData> getRecruiterData(String recruiter_id) {
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
@@ -59,6 +62,7 @@ public class RecruiterDao implements IRecruiterDao{
 		});
 	}
 	
+	// utility function to set job details in a RecruiterData object
 	public static RecruiterData mapRecruiterData(ResultSet resultSet) throws SQLException {
 		RecruiterData recruiterData = new RecruiterData();
 		recruiterData.setJob_id(resultSet.getInt(RecruiterDataTableConstants.JOB_ID));
@@ -76,6 +80,7 @@ public class RecruiterDao implements IRecruiterDao{
 		return recruiterData;
 	}
 
+	// function to get recruiter email given recruiter id -- used to mail recruiter when applicant clicks on MailHR
 	@Override
 	public List<String> getRecruiterEmail(String recruiter_id) {
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();

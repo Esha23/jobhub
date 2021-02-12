@@ -19,6 +19,7 @@ public class CategoryDao implements ICategoryDao{
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+	// get all categories of jobs
 	@Override
 	public List<Category> getCategoryList() {
 		return namedParameterJdbcTemplate.query(CategoryQueries.getCategoryList_Query, (resultSet, rowNum) -> {
@@ -26,6 +27,7 @@ public class CategoryDao implements ICategoryDao{
 		});
 	}
 	
+	// utility function to set a resultSet to Category object
 	public Category mapCategory(ResultSet resultSet) throws SQLException {
 		Category category = new Category();
 		category.setId(resultSet.getInt(CategoryTableConstants.ID));

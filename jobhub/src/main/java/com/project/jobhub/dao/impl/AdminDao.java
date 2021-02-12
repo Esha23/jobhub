@@ -17,6 +17,7 @@ public class AdminDao implements IAdminDao{
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate; 
 
+	// function to add a new category to category list ... only by admin .. yet to be implemented in UI
 	@Override
 	public void addCategory(String category_name) {
 		final KeyHolder holder = new GeneratedKeyHolder();
