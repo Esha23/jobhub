@@ -14,3 +14,6 @@ export const ADD_APPLICANT_DATA = 'applicant/addApplicantData/';
 export const GET_APPLICANT_DATA = 'applicant/getApplicantData/';
 export const ADD_RECRUITER_DATA = 'recruiter/addRecruiterData/';
 export const GET_RECRUITER_DATA = 'recruiter/getRecruiterData/';
+export const GET_JOB_RECOMMENDATION_LIST = 'applicant/getApplicantRecommendedJobs/';
+export const CLOSE_JOB = 'recruiter/closeJob/';
+export const MAIL_HR = 'applicant/mailHr/';

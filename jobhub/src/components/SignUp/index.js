@@ -7,12 +7,14 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import axios from 'axios';
 import * as ROUTES from '../../constants/routes';
+import { fetchUserSuccess } from '../../redux/slices/user';
+import { connect, useDispatch } from 'react-redux';
 
  
-const SignUpPage = () => (
+const SignUpPage = (props) => (
   <div style={{textAlign:"center"}}>
     <h1>SignUp</h1>
-    <SignUpForm />
+    <SignUpForm fetchUserSuccess={props.fetchUserSuccess}/>
   </div>
 );
 
@@ -28,12 +30,15 @@ var userDetails = {
   id: '',
   name: '',
   email: '',
-  type: '',
-  mailDetails:{
-    subject: null,
-    body: null
-  }
+  type: ''
 };
+
+function mapStateToPropos(state) {
+  console.log(state);
+  return {
+    users: state.users
+  };  
+}
  
 class SignUpFormBase extends Component {
   constructor(props) {
@@ -71,6 +76,8 @@ class SignUpFormBase extends Component {
           userDetails.name = username;
           var data = JSON.stringify(userDetails);
           console.log("userdetails:",data);
+          let that = this;
+          that.props.fetchUserSuccess(data);
           axios.post('http://localhost:8040/user/addUser', data, {
             "headers":{
               Action: "apllication/json",
@@ -215,6 +222,10 @@ const SignUpForm = compose(
   withFirebase,
 )(SignUpFormBase);
 
-export default SignUpPage;
+const dispatchToProps = {
+  fetchUserSuccess
+}
+
+export default connect(mapStateToPropos, dispatchToProps)(SignUpPage);
 
 export { SignUpForm, SignUpLink };

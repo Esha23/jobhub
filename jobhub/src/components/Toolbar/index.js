@@ -213,6 +213,9 @@ class ToolbarComponent extends React.Component {
             >
               <MenuIcon />
             </IconButton>
+            <Typography className={classes.title} variant="h6" noWrap>
+              <strong>JOBHUB</strong>
+            </Typography>
             <div className={classes.search} style={{marginLeft: "5%", width: "40%"}}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -235,7 +238,7 @@ class ToolbarComponent extends React.Component {
               </div>
               <SignOutButton />
             </div>
-            <div className={classes.sectionMobile}>
+            {/* <div className={classes.sectionMobile}>
               <IconButton
                 aria-label="show more"
                 aria-controls={mobileMenuId}
@@ -245,7 +248,7 @@ class ToolbarComponent extends React.Component {
               >
                 <MoreIcon />
               </IconButton>
-            </div>
+            </div> */}
           </Toolbar>
         </AppBar>
         {renderMobileMenu}

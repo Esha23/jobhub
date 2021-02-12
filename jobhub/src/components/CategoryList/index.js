@@ -59,7 +59,7 @@ function CategoryList(props) {
         const response = await httpClient.postData(ROUTES.APPLY_CATEGORY_APPLICANT+userObject.id,list);
         alert("Categories Selected !")
         console.log(userObject);
-        console.log(userObject.type === "Applicant");
+        console.log(userObject.type === 'Applicant');
         if(userObject.type === "Applicant"){
             setOpenModalApplicantRequirementDetails(true);
         }

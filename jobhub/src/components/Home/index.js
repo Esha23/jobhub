@@ -9,13 +9,18 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import { withAuthorization } from '../Session';
 import ToolbarComponent from "../Toolbar/index";
 import Modal from '@material-ui/core/Modal';
+import JobTile from '../JobTile';
  
 function HomePage () {
 
   const userObject = useSelector(getCurrentUser);
-  var applicantData ={};
+  // var applicantData =[];
+  // var recruiterDataList = [];
+  // var recData = {};
 
   const [openModalApplyForJob, setModalOpenApplyForJob] = React.useState(false);
+  const [recruiterDataList, setrecruiterDataList] = React.useState([]);
+  const [applicantData, setapplicantData] = React.useState([]);
 
   const handleOpenModalApplyForJob = () => {
     setModalOpenApplyForJob(true);
@@ -27,10 +32,18 @@ function HomePage () {
   useEffect(async() => {
     console.log(userObject);
     let response = await httpClient.getData(ROUTES.GET_APPLICANT_DATA+userObject.id);
-    applicantData = response;
+    // applicantData = response;
+    setapplicantData(response);
     Object.values(applicantData).map(val => {
-      console.log(val.gender)
+      console.log(val)
     })
+    let response1 = await httpClient.getData(ROUTES.GET_JOB_RECOMMENDATION_LIST+userObject.id);
+    console.log(response1);
+    // recruiterDataList = response1;
+    setrecruiterDataList(response1);
+    // recData = recruiterDataList[0];
+    console.log("rec data res1:", recruiterDataList);
+    console.log("rec adat list length: ",recruiterDataList.length);
   },[]);
 
   return(
@@ -43,20 +56,36 @@ function HomePage () {
           <h1>Applicant Home</h1>
           <hr />
           <Button size="small" variant="contained" color="primary" onClick={handleOpenModalApplyForJob}>APPLY FOR JOB</Button>
+          <Button size="small" variant="contained" color="primary"  style={{marginLeft:"1%"}}>Sort By Salary</Button>
+          <Button size="small" variant="contained" color="primary" style={{marginLeft:"1%"}} >Sort By Location</Button>
         </div>
-              
-          {Object.values(applicantData).map(val => (
+          {Object.values(applicantData).map((val,i) => (
             <>
+              <br />
+              <label><strong>Your Profile :</strong></label>
+              <br />
+              <br />
               <label>Contact : {val.contact}</label>
+              <br />
               <label>Gender : {val.gender}</label>
+              <br />
               <label>Experience : {val.experience}</label>
+              <br />
               <label>Education : {val.education}</label>
+              <br />
               <label>Location : {val.location}</label>
             </>
           ))}
+          <hr />
         
       </div>
-
+      <div>
+        {(recruiterDataList.length == 0) ?
+          <p style={{ aligin: "center" }}>No Matching Jobs.....Apply to job to get matches!</p> : recruiterDataList.map((RecruiterData, index) => (
+            <JobTile RecruiterData={RecruiterData} />
+          ))
+        }
+      </div>
       
 
       <Modal

@@ -10,10 +10,17 @@ import { getCurrentUser } from '../../redux/selectors/userSelectors';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import { Category } from '@material-ui/icons';
 
+// function mapStateToPropos(state) {
+//     return {
+//       users: state.users
+//     };
+//   }
+
 function ApplicantRequirementDetails(props) {
     const { onClose = {} } = props
 
     const userObject = useSelector(getCurrentUser);
+    console.log(userObject);
 
     useEffect(async() => {
         let response = await httpClient.getData(ROUTES.GET_CATEGORY_LIST);
@@ -23,9 +30,9 @@ function ApplicantRequirementDetails(props) {
 
     global.setIsSelected = () => {
         Object.values(categoryList).map(val => {
-            console.log(val.name);
+            // console.log(val.name);
             val.isSelected=false;
-            console.log(val);
+            // console.log(val);
         });
     }
 
@@ -44,6 +51,9 @@ function ApplicantRequirementDetails(props) {
     const [experience, setExperience] = useState(0);
     const [education, setEducation] = useState("");
     const [location, setLocation] = useState("");
+    const [salary, setSalary] = useState(0);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
     const [category, setCategory] = React.useState("");
     const [categoryList, setCategoryList] = React.useState({});
 
@@ -53,7 +63,8 @@ function ApplicantRequirementDetails(props) {
         gender: '',
         experience: '',
         education: '',
-        location: ''
+        location: '',
+        salary:0
     }
 
     const recruiterData = {
@@ -64,16 +75,22 @@ function ApplicantRequirementDetails(props) {
         experience: '',
         education: '',
         location: '',
+        salary: 0,
+        title: '',
+        description: '',
         job_status: ''
     }
 
     const onSubmit = async() => {
+        // console.log((userObject.type === "Applicant"));
+        console.log(userObject.type);
         if(userObject.type === "Applicant"){
             applicantData.contact = contact;
             applicantData.gender = gender;
             applicantData.experience = experience;
             applicantData.education = education;
             applicantData.location = location;
+            applicantData.salary = salary;
             console.log("applicantdata:",applicantData)
             let response = await httpClient.postData(ROUTES.ADD_APPLICANT_DATA,applicantData);
         }
@@ -90,9 +107,13 @@ function ApplicantRequirementDetails(props) {
             recruiterData.experience = experience;
             recruiterData.education = education;
             recruiterData.location = location;
+            recruiterData.salary = salary;
+            recruiterData.title = title;
+            recruiterData.description = description;
             console.log("recruiterData:",recruiterData)
             let response = await httpClient.postData(ROUTES.ADD_RECRUITER_DATA,recruiterData);
         }
+        window.location.reload();
         onClose();
     }
 
@@ -111,7 +132,7 @@ function ApplicantRequirementDetails(props) {
                     <input type="radio" value="Female" name="gender" /> Female
                     <input type="radio" value="Other" name="gender" /> Other
                 </div>
-                {(userObject.type === 'Recruiter') ?
+                {(true) ?
                 <>
                     <select style={{
                             height:30,
@@ -130,6 +151,39 @@ function ApplicantRequirementDetails(props) {
                 </>
                 : <></>}
                 <br />
+
+                <input
+                    type="text"
+                    placeholder="job title"
+                    name="title"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    style={{
+                        height: 30,
+                        width: "90%",
+                        paddingLeft: 10,
+                        marginBottom: 20,
+                        borderColor: "#5d575e"
+                    }}
+                />
+                <br />
+
+                <input
+                    type="textarea"
+                    placeholder="description"
+                    name="description"
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
+                    style={{
+                        height: 30,
+                        width: "90%",
+                        paddingLeft: 10,
+                        marginBottom: 20,
+                        borderColor: "#5d575e"
+                    }}
+                />
+                <br />
+
                 <input
                     type="text"
                     placeholder="Total Experience (in years)"
@@ -181,6 +235,22 @@ function ApplicantRequirementDetails(props) {
                     <option value="Bangalore" style={{color: "black"}}>Bangalore</option>
                     <option value="Chennai" style={{color: "black"}}>Chennai</option>
                 </select>
+                <br />
+
+                <input
+                    type="text"
+                    placeholder="Approximate Salary"
+                    name="salary"
+                    value={salary}
+                    onChange={e => setSalary(e.target.value)}
+                    style={{
+                        height: 30,
+                        width: "90%",
+                        paddingLeft: 10,
+                        marginBottom: 20,
+                        borderColor: "#5d575e"
+                    }}
+                />
                 <br />
                 <Button size="small" variant="contained" color="primary" onClick={onSubmit} style={{ float: "left" }}>Submit</Button>
                 <Button size="small" variant="contained" color="primary" onClick={onClose()} style={{ float: "right" }}>Close</Button>

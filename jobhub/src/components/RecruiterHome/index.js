@@ -8,13 +8,15 @@ import * as ROUTES from '../../constants/routes';
 import { httpClient } from '../../utils/HTTPBaseClient';
 import { getCurrentUser } from '../../redux/selectors/userSelectors';
 import {connect, useDispatch, useSelector} from 'react-redux';
+import JobTile from '../JobTile';
 
 function RecruiterHome () {
 
   const userObject = useSelector(getCurrentUser);
-  var recruiterData ={};
+  // var recruiterDataJobList ={};
 
   const [openModalPostJob, setOpenModalPostJob] = React.useState(false);
+  const [recruiterDataJobList, setrecruiterDataJobList] = React.useState([]);
 
   const handleOpenModalPostJob = () => {
     setOpenModalPostJob(true);
@@ -26,10 +28,11 @@ function RecruiterHome () {
   useEffect(async() => {
     console.log(userObject);
     let response = await httpClient.getData(ROUTES.GET_RECRUITER_DATA+userObject.id);
-    recruiterData = response;
+    // recruiterDataJobList = response;
+    setrecruiterDataJobList(response);
     console.log("get rec res :",response)
-    console.log("rec data:",recruiterData)
-    Object.values(recruiterData).map(val => {
+    console.log("rec data:",recruiterDataJobList)
+    Object.values(recruiterDataJobList).map(val => {
       console.log(val)
     })
   },[]);
@@ -45,6 +48,13 @@ function RecruiterHome () {
           <hr />
           <Button size="small" variant="contained" color="primary" onClick={handleOpenModalPostJob}>POST JOB</Button>
         </div>
+      </div>
+      <div>
+        {(recruiterDataJobList.length == 0) ?
+          <p style={{ aligin: "center" }}>No Jobs Posted... Click on Post Job to post!</p> : Object.values(recruiterDataJobList).map((RecruiterData, index) => (
+            <JobTile RecruiterData={RecruiterData} />
+          ))
+        }
       </div>
 
 
