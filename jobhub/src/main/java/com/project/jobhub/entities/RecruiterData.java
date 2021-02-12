@@ -12,7 +12,7 @@ public class RecruiterData {
 	
 	private String gender;
 	
-	private String experience;
+	private Integer experience;
 	
 	private String education;
 	
@@ -31,7 +31,7 @@ public class RecruiterData {
 	}
 
 	public RecruiterData(Integer job_id, String recruiter_id, String category_id, String contact, String gender,
-			String experience, String education, String location, Integer salary, String title, String description,
+			Integer experience, String education, String location, Integer salary, String title, String description,
 			String job_status) {
 		super();
 		this.job_id = job_id;
@@ -80,11 +80,11 @@ public class RecruiterData {
 		this.gender = gender;
 	}
 
-	public String getExperience() {
+	public Integer getExperience() {
 		return experience;
 	}
 
-	public void setExperience(String experience) {
+	public void setExperience(Integer experience) {
 		this.experience = experience;
 	}
 

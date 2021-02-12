@@ -57,7 +57,6 @@ public class RecruiterDao implements IRecruiterDao{
 		return namedParameterJdbcTemplate.query(RecruiterQueries.getRecruiterData_Query, srcMap,(resultSet, rowNum) -> {
 			return mapRecruiterData(resultSet);
 		});
-//		return applicantDataList.get(0);
 	}
 	
 	public static RecruiterData mapRecruiterData(ResultSet resultSet) throws SQLException {
@@ -67,7 +66,7 @@ public class RecruiterDao implements IRecruiterDao{
 		recruiterData.setCategory_id(resultSet.getString(RecruiterDataTableConstants.CATEGORY_ID));
 		recruiterData.setContact(resultSet.getString(RecruiterDataTableConstants.CONTACT));
 		recruiterData.setGender(resultSet.getString(RecruiterDataTableConstants.GENDER));
-		recruiterData.setExperience(resultSet.getString(RecruiterDataTableConstants.EXPERIENCE));
+		recruiterData.setExperience(resultSet.getInt(RecruiterDataTableConstants.EXPERIENCE));
 		recruiterData.setEducation(resultSet.getString(RecruiterDataTableConstants.EDUCATION));
 		recruiterData.setLocation(resultSet.getString(RecruiterDataTableConstants.LOCATION));
 		recruiterData.setSalary(resultSet.getInt(RecruiterDataTableConstants.SALARY));

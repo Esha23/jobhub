@@ -8,7 +8,7 @@ public class ApplicantData {
 	
 	private String gender;
 	
-	private String experience;
+	private Integer experience;
 	
 	private String education;
 	
@@ -20,7 +20,7 @@ public class ApplicantData {
 		
 	}
 
-	public ApplicantData(String applicant_id, String contact, String gender, String experience, String education,
+	public ApplicantData(String applicant_id, String contact, String gender, Integer experience, String education,
 			String location, Integer salary) {
 		super();
 		this.applicant_id = applicant_id;
@@ -56,11 +56,11 @@ public class ApplicantData {
 		this.gender = gender;
 	}
 
-	public String getExperience() {
+	public Integer getExperience() {
 		return experience;
 	}
 
-	public void setExperience(String experience) {
+	public void setExperience(Integer experience) {
 		this.experience = experience;
 	}
 

@@ -31,7 +31,7 @@ public class ApplicantQueries {
 			+ " WHERE " + RecruiterDataTableConstants.EDUCATION + " = :" + RecruiterDataTableConstants.EDUCATION;
 	
 	public static final String getApplicantRecommendedJobsByExperience_Query = "SELECT * FROM " + RecruiterDataTableConstants.TABLE_NAME 
-			+ " WHERE " + RecruiterDataTableConstants.EXPERIENCE + " = :" + RecruiterDataTableConstants.EXPERIENCE;
+			+ " WHERE " + RecruiterDataTableConstants.EXPERIENCE + " >= :" + RecruiterDataTableConstants.EXPERIENCE;
 	
 	public static final String getApplicantRecommendedJobsBySalary_Query = "SELECT * FROM " + RecruiterDataTableConstants.TABLE_NAME 
 			+ " WHERE " + RecruiterDataTableConstants.SALARY + " >= :" + RecruiterDataTableConstants.SALARY;

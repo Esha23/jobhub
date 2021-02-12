@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import com.project.jobhub.dao.IApplicantDao;
 import com.project.jobhub.dao.IUserDetailsDao;
@@ -79,7 +78,7 @@ public class ApplicantDao implements IApplicantDao{
 		applicantData.setApplicant_id(resultSet.getString(ApplicantDataTableConstants.APPLICANT_ID));
 		applicantData.setContact(resultSet.getString(ApplicantDataTableConstants.CONTACT));
 		applicantData.setGender(resultSet.getString(ApplicantDataTableConstants.GENDER));
-		applicantData.setExperience(resultSet.getString(ApplicantDataTableConstants.EXPERIENCE));
+		applicantData.setExperience(resultSet.getInt(ApplicantDataTableConstants.EXPERIENCE));
 		applicantData.setEducation(resultSet.getString(ApplicantDataTableConstants.EDUCATION));
 		applicantData.setLocation(resultSet.getString(ApplicantDataTableConstants.LOCATION));
 		applicantData.setSalary(resultSet.getInt(ApplicantDataTableConstants.SALARY));
@@ -209,13 +208,13 @@ public class ApplicantDao implements IApplicantDao{
 		});
 	}
 	
-	private String getApplicantExperienceById(String applicant_id) {
+	private Integer getApplicantExperienceById(String applicant_id) {
 		List<ApplicantData> applicantDataList = getApplicantData(applicant_id);
 		return applicantDataList.get(0).getExperience();
 	}
 	
 	private List<RecruiterData> getApplicantRecommendedJobsByExperience(String applicant_id){
-		String experience = getApplicantExperienceById(applicant_id);
+		Integer experience = getApplicantExperienceById(applicant_id);
 		MapSqlParameterSource srcMap = new MapSqlParameterSource();
 		srcMap.addValue(RecruiterDataTableConstants.EXPERIENCE, experience);
 		return namedParameterJdbcTemplate.query(ApplicantQueries.getApplicantRecommendedJobsByExperience_Query, srcMap,(resultSet, rowNum) -> {
